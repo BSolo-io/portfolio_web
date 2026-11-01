@@ -45,6 +45,17 @@ html {
 body {
   margin: 0;
   background: var(--bg);
+  /* The site has no text inputs: hide the blinking text cursor that appears
+     when clicking on text, and use the normal arrow instead of the I-beam. */
+  caret-color: transparent;
+  cursor: default;
+}
+
+/* Clickable things still get the hand cursor */
+a,
+button,
+[role='link'] {
+  cursor: pointer;
 }
 
 img,
