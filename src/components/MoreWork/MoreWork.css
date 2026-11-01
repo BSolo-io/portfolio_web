@@ -1,4 +1,17 @@
 .more-work {
-  min-height: 50vh;
-  padding: 4rem 1rem;
+  padding-top: 2rem;
+}
+
+.more-work__inner {
+  text-align: center;
+  max-width: 640px;
+}
+
+.more-work__inner .section__title {
+  margin-bottom: 0.75rem;
+}
+
+.more-work__text {
+  margin: 0 0 1.75rem;
+  color: var(--text-muted);
 }

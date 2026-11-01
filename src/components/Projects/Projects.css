@@ -1,4 +1,52 @@
 .projects {
-  min-height: 50vh;
-  padding: 4rem 1rem;
+  overflow: hidden;
+}
+
+.projects__swiper {
+  --swiper-theme-color: var(--accent);
+  --swiper-navigation-size: 28px;
+  --swiper-pagination-bullet-inactive-color: var(--text-muted);
+  max-width: 1280px;
+  padding: 1rem 1rem 3.5rem;
+}
+
+/* Neighbouring slides peek in smaller and dimmed; the active one is full size */
+.projects__slide {
+  height: auto;
+  opacity: 0.45;
+  transform: scale(0.88);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.projects__slide.swiper-slide-active {
+  opacity: 1;
+  transform: none;
+}
+
+.projects__swiper .swiper-button-prev,
+.projects__swiper .swiper-button-next {
+  width: 3rem;
+  height: 3rem;
+  margin-top: -2.5rem;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.projects__swiper .swiper-button-prev svg,
+.projects__swiper .swiper-button-next svg {
+  width: 40%;
+  height: 40%;
+}
+
+@media (max-width: 767px) {
+  .projects__slide {
+    transform: none;
+  }
+
+  .projects__swiper .swiper-button-prev,
+  .projects__swiper .swiper-button-next {
+    display: none;
+  }
 }

@@ -1,0 +1,164 @@
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card--active:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+/* Media area: screenshot, preview clip and hover overlay are stacked */
+.card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.card__image,
+.card__video,
+.card__placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__image {
+  transition: transform 0.6s ease;
+}
+
+.card--playing .card__image {
+  transform: scale(1.04);
+}
+
+/* Placeholder until a real screenshot exists. Uses --hue from projects.js */
+.card__placeholder {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #fff;
+  background:
+    radial-gradient(circle at 20% 20%, hsl(var(--hue) 80% 70% / 0.6), transparent 50%),
+    linear-gradient(135deg, hsl(var(--hue) 65% 45%), hsl(calc(var(--hue) + 50) 65% 35%));
+  background-size: 100% 100%, 200% 200%;
+  background-position: 0 0, 0% 50%;
+}
+
+/* Demo "playing" state when there's no clip yet: the placeholder animates */
+.card--playing .card__placeholder {
+  animation: preview-pan 3s ease-in-out infinite alternate;
+}
+
+@keyframes preview-pan {
+  to {
+    background-position: 100% 100%, 100% 50%;
+  }
+}
+
+.card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.65), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card--playing .card__overlay {
+  opacity: 1;
+}
+
+.card__overlay-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transform: translateY(8px);
+  transition: transform 0.3s ease;
+}
+
+.card--playing .card__overlay-hint {
+  transform: none;
+}
+
+.card__preview-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgb(0 0 0 / 0.45);
+}
+
+/* Text area */
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card__summary {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card__tech li {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.card__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.btn--sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+}
