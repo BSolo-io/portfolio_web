@@ -1,4 +1,14 @@
-.about {
-  min-height: 50vh;
-  padding: 4rem 1rem;
+.about__inner {
+  max-width: 720px;
+}
+
+.about__story p {
+  margin: 0 0 1.25rem;
+  font-size: 1.075rem;
+  color: var(--text-muted);
+}
+
+.about__story p:first-child {
+  font-size: 1.25rem;
+  color: var(--text);
 }

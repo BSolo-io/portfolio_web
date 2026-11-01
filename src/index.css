@@ -1,16 +1,34 @@
+/* Design tokens: change colours here and the whole site follows. */
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --text: #16161d;
+  --text-muted: #4a4a58;
+  --border: #dcdce6;
+  --accent: #5b5bd6;
+  --accent-2: #2fa4a9;
+  --accent-contrast: #ffffff;
+  --shadow: 0 10px 30px rgb(20 20 40 / 0.12);
+  --radius: 16px;
+
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text);
   background: var(--bg);
+  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121212;
-    --text: #eaeaea;
+    --bg: #101015;
+    --surface: #1a1a22;
+    --text: #ececf2;
+    --text-muted: #a8a8b8;
+    --border: #2e2e3a;
+    --accent: #8b8bff;
+    --accent-2: #4fd1c5;
+    --accent-contrast: #101015;
+    --shadow: 0 10px 30px rgb(0 0 0 / 0.45);
   }
 }
 
@@ -20,11 +38,101 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
+html {
+  scroll-behavior: smooth;
 }
 
-img {
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+img,
+video {
   max-width: 100%;
   display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Shared layout helpers */
+.container {
+  width: min(1120px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section__title {
+  margin: 0 0 2rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  letter-spacing: -0.01em;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: transform 0.2s, background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.btn--ghost {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
