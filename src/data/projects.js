@@ -12,7 +12,7 @@
 //   codeUrl   GitHub repo link
 //   hue       placeholder colour (0-360) until a screenshot exists
 
-const GITHUB = 'https://github.com/BSolo-AFK'
+const GITHUB = 'https://github.com/BSolo-io'
 
 export const projects = [
   {
