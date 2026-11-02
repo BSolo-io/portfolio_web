@@ -6,11 +6,18 @@ import { story } from '../../data/profile.js'
 const SWIPE_MIN_PX = 50
 
 // The story plays like an MP3 player: each question is one "track".
-// The player's back / next buttons (or a swipe, or the arrow keys) switch tracks,
-// the new page slides in from the side, and the progress bar moves one step per track.
+// The player's back / next buttons (or a swipe, the arrow keys, or the progress bar)
+// switch tracks. During a switch both pages are on screen: the old one slides out
+// one side while the new one slides in from the other, like turning a page.
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 function About() {
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState('next')
+  // The page that is sliding out (null when no transition is running)
+  const [leavingIndex, setLeavingIndex] = useState(null)
   const windowRef = useRef(null)
   const touchStart = useRef(null)
 
@@ -23,6 +30,7 @@ function About() {
   function goTo(newIndex) {
     if (newIndex < 0 || newIndex > last || newIndex === index) return
     setDirection(newIndex > index ? 'next' : 'prev')
+    setLeavingIndex(prefersReducedMotion() ? null : index)
     setIndex(newIndex)
     if (windowRef.current) windowRef.current.scrollTop = 0
   }
@@ -63,19 +71,26 @@ function About() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {/* key forces a fresh element per track, which replays the slide-in animation */}
-            <article
-              key={track.id}
-              className={`track track--from-${direction === 'next' ? 'right' : 'left'}`}
-              aria-live="polite"
-            >
-              <h2 className="track__question">{track.question}</h2>
-              {track.body.map((paragraph, i) => (
-                <p key={i} className="track__text">
-                  {paragraph}
-                </p>
-              ))}
-            </article>
+            <div className="track-stage">
+              {leavingIndex !== null && (
+                <TrackPage
+                  key={story[leavingIndex].id}
+                  track={story[leavingIndex]}
+                  className={`track track--out-${direction === 'next' ? 'left' : 'right'}`}
+                  onAnimationEnd={() => setLeavingIndex(null)}
+                  hidden
+                />
+              )}
+              <TrackPage
+                key={track.id}
+                track={track}
+                className={
+                  leavingIndex === null
+                    ? 'track'
+                    : `track track--in-${direction === 'next' ? 'right' : 'left'}`
+                }
+              />
+            </div>
           </div>
 
           <PlayerFrame
@@ -116,6 +131,25 @@ function About() {
         </div>
       </div>
     </section>
+  )
+}
+
+// One page of the story. `hidden` marks the outgoing page so screen readers skip it.
+function TrackPage({ track, className, onAnimationEnd, hidden = false }) {
+  return (
+    <article
+      className={className}
+      onAnimationEnd={onAnimationEnd}
+      aria-hidden={hidden || undefined}
+      aria-live={hidden ? undefined : 'polite'}
+    >
+      <h2 className="track__question">{track.question}</h2>
+      {track.body.map((paragraph, i) => (
+        <p key={i} className="track__text">
+          {paragraph}
+        </p>
+      ))}
+    </article>
   )
 }
 

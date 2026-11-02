@@ -64,34 +64,58 @@
   margin-bottom: 0;
 }
 
-/* Swipe animation: the new page slides in from the side it came from (0.9s) */
-.track--from-right {
-  animation: track-in-right 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+/* Two-page slide: both pages share one grid cell, so during a switch the old page
+   slides out one side while the new page slides in from the other, side by side. */
+.track-stage {
+  display: grid;
 }
 
-.track--from-left {
-  animation: track-in-left 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+.track {
+  grid-area: 1 / 1;
+}
+
+.track--out-left {
+  animation: track-out-left 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.track--out-right {
+  animation: track-out-right 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.track--in-right {
+  animation: track-in-right 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.track--in-left {
+  animation: track-in-left 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* 1.25rem matches the window's side padding, so the pages meet edge to edge */
+@keyframes track-out-left {
+  to {
+    transform: translateX(calc(-100% - 1.25rem));
+    opacity: 0.4;
+  }
+}
+
+@keyframes track-out-right {
+  to {
+    transform: translateX(calc(100% + 1.25rem));
+    opacity: 0.4;
+  }
 }
 
 @keyframes track-in-right {
   from {
-    opacity: 0;
-    transform: translateX(60px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: translateX(calc(100% + 1.25rem));
+    opacity: 0.4;
   }
 }
 
 @keyframes track-in-left {
   from {
-    opacity: 0;
-    transform: translateX(-60px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: translateX(calc(-100% - 1.25rem));
+    opacity: 0.4;
   }
 }
 
