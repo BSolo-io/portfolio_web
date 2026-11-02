@@ -1,5 +1,6 @@
 // Music-player frame, converted from public/player-frame.svg so the progress bar
-// can move. `progress` goes from 0 (top of the story) to 1 (end of the story).
+// can move. `progress` goes from 0 (first track) to 1 (last track).
+// canPrev / canNext dim the back / next arrows when there's nowhere to go.
 // The art window is a transparent hole: x=42 y=42 w=316 h=316 in viewBox units.
 
 const TRACK_X = 42
@@ -12,15 +13,15 @@ function formatTime(seconds) {
   return `${m}:${String(s).padStart(2, '0')}`
 }
 
-function PlayerFrame({ progress, className }) {
+function PlayerFrame({ progress, canPrev = true, canNext = true, className }) {
   const p = Math.min(Math.max(progress, 0), 1)
-  const filled = TRACK_WIDTH * p
   const elapsed = TOTAL_SECONDS * p
   const remaining = TOTAL_SECONDS - elapsed
 
   return (
     <svg
       className={className}
+      style={{ '--progress': p }} /* drives the animated scrubber in About.css */
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 400 680"
       aria-hidden="true"
@@ -42,10 +43,19 @@ function PlayerFrame({ progress, className }) {
           Borys Solorzano
         </text>
 
-        {/* scrubber: follows the story's scroll position */}
+        {/* scrubber: moves one step per track */}
         <rect x={TRACK_X} y="468" width={TRACK_WIDTH} height="4" rx="2" fill="#fff" fillOpacity=".3" />
-        <rect x={TRACK_X} y="468" width={filled} height="4" rx="2" fill="#fff" fillOpacity=".92" />
-        <circle cx={TRACK_X + filled} cy="470" r="5.5" fill="#fff" />
+        <rect
+          className="scrubber__fill"
+          x={TRACK_X}
+          y="468"
+          width={TRACK_WIDTH}
+          height="4"
+          rx="2"
+          fill="#fff"
+          fillOpacity=".92"
+        />
+        <circle className="scrubber__knob" cx={TRACK_X} cy="470" r="5.5" fill="#fff" />
         <text x="42" y="494" fill="#fff" fillOpacity=".65" fontSize="12">
           {formatTime(elapsed)}
         </text>
@@ -56,12 +66,16 @@ function PlayerFrame({ progress, className }) {
 
       {/* transport controls */}
       <g fill="#fff">
-        <path d="M144 530 V560 L123 545 Z" />
-        <path d="M123 530 V560 L102 545 Z" />
+        <g className={`transport__arrow${canPrev ? '' : ' transport__arrow--off'}`}>
+          <path d="M144 530 V560 L123 545 Z" />
+          <path d="M123 530 V560 L102 545 Z" />
+        </g>
         <rect x="189" y="529" width="7" height="32" rx="2.5" />
         <rect x="204" y="529" width="7" height="32" rx="2.5" />
-        <path d="M256 530 V560 L277 545 Z" />
-        <path d="M277 530 V560 L298 545 Z" />
+        <g className={`transport__arrow${canNext ? '' : ' transport__arrow--off'}`}>
+          <path d="M256 530 V560 L277 545 Z" />
+          <path d="M277 530 V560 L298 545 Z" />
+        </g>
       </g>
 
       {/* volume */}

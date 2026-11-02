@@ -25,6 +25,7 @@
   top: calc(6.18% - 2px);
   width: calc(79% + 4px);
   height: calc(46.47% + 4px);
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 1.25rem 1.25rem 1.5rem;
@@ -43,24 +44,118 @@
   outline-offset: -4px;
 }
 
-.player__title {
+/* ---------- One story "track" (page) ---------- */
+.track__number {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #5b5bd6;
+}
+
+.track__question {
   margin: 0 0 0.75rem;
   font-size: 1.35rem;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
-.player__window p {
+.track__text {
   margin: 0 0 0.9rem;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text-muted);
 }
 
-.player__window p:first-of-type {
-  font-size: 1rem;
-  color: var(--text);
+.track__text:last-child {
+  margin-bottom: 0;
 }
 
-.player__window p:last-child {
-  margin-bottom: 0;
+/* Swipe animation: the new page slides in from the side it came from */
+.track--from-right {
+  animation: track-in-right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.track--from-left {
+  animation: track-in-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes track-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes track-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Progress bar (inside PlayerFrame.jsx) ---------- */
+/* --progress (0 to 1) is set on the SVG; the bar and knob glide to each new track */
+.scrubber__fill {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(var(--progress));
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scrubber__knob {
+  transform: translateX(calc(var(--progress) * 316px)); /* 316 = track width in SVG units */
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.transport__arrow {
+  transition: opacity 0.2s;
+}
+
+.transport__arrow--off {
+  opacity: 0.3;
+}
+
+/* ---------- Back / next buttons ---------- */
+/* Invisible hit areas over the SVG arrows (back arrows: x 102–144, next: x 256–298, y 530–560
+   in the 400 x 680 viewBox), padded so they're easy to tap. */
+.player__btn {
+  position: absolute;
+  top: 76.2%;
+  width: 15.5%;
+  height: 7.9%;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.player__btn--prev {
+  left: 23%;
+}
+
+.player__btn--next {
+  left: 61.5%;
+}
+
+.player__btn:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.player__btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.player__btn:disabled {
+  cursor: default;
 }
