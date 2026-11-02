@@ -44,7 +44,7 @@
       "No front-end framework — routing and rendering by hand",
       "Server-side routes with a real 404 page"
     ],
-    "media": { "type": "gif", "src": "/projects/pokemon-elite-four.gif", "alt": "Browsing the team and opening a Pokémon's stat sheet" },
+    "media": { "type": "gif", "src": "/projects/pokemon-elite-four.gif", "poster": "/projects/pokemon-elite-four.webp", "alt": "Browsing the team and opening a Pokémon's stat sheet" },
     "links": { "repo": "https://github.com/BSolo-io/Pokemon_Elite_4", "demo": null }
   },
   {
