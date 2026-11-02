@@ -44,7 +44,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  /* No background here: the page colour comes from :root, so the fixed
+     birds layer (z-index -1) can show between the root colour and the content */
   /* The site has no text inputs: hide the blinking text cursor that appears
      when clicking on text, and use the normal arrow instead of the I-beam. */
   caret-color: transparent;

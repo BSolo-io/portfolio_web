@@ -1,0 +1,15 @@
+/* Fixed to the screen behind all content: the birds stay put while the page
+   scrolls, and the canvas is only ever one screen in size (fast). */
+.vanta-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+/* Fade the birds in once they've loaded */
+.vanta-bg--ready {
+  opacity: 1;
+}
