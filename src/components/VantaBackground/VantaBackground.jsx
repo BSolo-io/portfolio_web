@@ -1,4 +1,4 @@
-// Animated birds behind the whole site (Vanta.js, MIT licensed).
+// Animated rings behind the whole site (Vanta.js, MIT licensed).
 //
 // three and vanta are pinned in package.json (three@0.134.0, vanta@0.5.24):
 // Vanta only works with the three.js r134 era and breaks on modern three,
@@ -20,13 +20,13 @@ function VantaBackground() {
     let cancelled = false
 
     // three.js is large (~600 KB), so it's loaded in a separate file after the
-    // page has rendered: the content appears first, then the birds fade in.
-    Promise.all([import('three'), import('vanta/dist/vanta.birds.min')]).then(
-      ([THREE, birdsModule]) => {
+    // page has rendered: the content appears first, then the rings fade in.
+    Promise.all([import('three'), import('vanta/dist/vanta.rings.min')]).then(
+      ([THREE, ringsModule]) => {
         if (cancelled || !hostRef.current) return
         // The Vanta file is an old-style (UMD) bundle; the effect may sit under .default
-        const BIRDS = birdsModule.default?.default || birdsModule.default || birdsModule
-        effect = BIRDS({
+        const RINGS = ringsModule.default?.default || ringsModule.default || ringsModule
+        effect = RINGS({
           el: hostRef.current, // the node itself, not a selector string
           THREE, // required: the bundled three isn't on window
           mouseControls: true,

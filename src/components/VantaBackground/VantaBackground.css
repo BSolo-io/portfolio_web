@@ -1,4 +1,4 @@
-/* Fixed to the screen behind all content: the birds stay put while the page
+/* Fixed to the screen behind all content: the rings stay put while the page
    scrolls, and the canvas is only ever one screen in size (fast). */
 .vanta-bg {
   position: fixed;
@@ -9,7 +9,7 @@
   transition: opacity 1.2s ease;
 }
 
-/* Fade the birds in once they've loaded */
+/* Fade the rings in once they've loaded */
 .vanta-bg--ready {
   opacity: 1;
 }
