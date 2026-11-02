@@ -69,9 +69,6 @@ function About() {
               className={`track track--from-${direction === 'next' ? 'right' : 'left'}`}
               aria-live="polite"
             >
-              <p className="track__number">
-                {index + 1} / {story.length}
-              </p>
               <h2 className="track__question">{track.question}</h2>
               {track.body.map((paragraph, i) => (
                 <p key={i} className="track__text">
@@ -86,6 +83,19 @@ function About() {
             progress={progress}
             canPrev={canPrev}
             canNext={canNext}
+          />
+
+          {/* Invisible slider over the frame's progress bar: click or drag to jump to a track */}
+          <input
+            type="range"
+            className="player__seek"
+            min={0}
+            max={last}
+            step={1}
+            value={index}
+            onChange={(e) => goTo(Number(e.target.value))}
+            aria-label="Jump to question"
+            aria-valuetext={`${index + 1} of ${story.length}: ${track.question}`}
           />
 
           {/* Invisible buttons sitting exactly over the frame's back / next arrows */}

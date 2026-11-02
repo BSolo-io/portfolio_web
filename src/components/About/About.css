@@ -45,16 +45,9 @@
 }
 
 /* ---------- One story "track" (page) ---------- */
-.track__number {
-  margin: 0 0 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #5b5bd6;
-}
-
 .track__question {
   margin: 0 0 0.75rem;
+  text-align: center;
   font-size: 1.35rem;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -71,13 +64,13 @@
   margin-bottom: 0;
 }
 
-/* Swipe animation: the new page slides in from the side it came from */
+/* Swipe animation: the new page slides in from the side it came from (0.9s) */
 .track--from-right {
-  animation: track-in-right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: track-in-right 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .track--from-left {
-  animation: track-in-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: track-in-left 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes track-in-right {
@@ -158,4 +151,47 @@
 
 .player__btn:disabled {
   cursor: default;
+}
+
+/* ---------- Seek slider over the progress bar ---------- */
+/* Covers the SVG scrubber (x 42–358, y 468–472 in the 400 x 680 viewBox) with a taller
+   hit area. It's an invisible native range input, so dragging, clicking and the
+   keyboard all work; the SVG bar underneath shows the position. */
+.player__seek {
+  position: absolute;
+  left: 10.5%;
+  top: 67.4%;
+  width: 79%;
+  height: 3.6%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+/* A 1px thumb keeps the click position mapped linearly across the bar */
+.player__seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1px;
+  height: 100%;
+}
+
+.player__seek::-moz-range-thumb {
+  width: 1px;
+  height: 100%;
+  border: 0;
+}
+
+/* Keyboard users still see where focus is: highlight the bar area */
+.player__seek:focus-visible {
+  opacity: 1;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.player__seek:focus-visible::-webkit-slider-thumb {
+  opacity: 0;
 }
