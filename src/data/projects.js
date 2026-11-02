@@ -19,6 +19,7 @@
 // never show placeholder text to recruiters.
 
 import data from './projects.json'
+import { asset } from '../lib/asset.js'
 
 const MAX_PROJECTS = 15
 
@@ -43,6 +44,14 @@ export const projects = data
     description: clean(p.description),
     highlights: (p.highlights || []).filter((h) => !isTodo(h)),
     tech: p.tech || [],
-    media: p.media ? { ...p.media, alt: clean(p.media.alt) || `Preview of ${p.title}` } : null,
+    // asset() adds the GitHub Pages subpath, so JSON paths stay as "/projects/…"
+    media: p.media
+      ? {
+          ...p.media,
+          src: asset(p.media.src),
+          poster: asset(p.media.poster),
+          alt: clean(p.media.alt) || `Preview of ${p.title}`,
+        }
+      : null,
     hue: hueFromSlug(p.slug),
   }))

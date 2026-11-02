@@ -5,7 +5,7 @@ Tech Stack
 • React (Vite recommended)
 • Swiper for the projects carousel
 • CSS in separate files or modules, no inline styles
-• Hosted free on GitHub Pages
+• Hosted free on GitHub Pages at https://bsolo-io.github.io/portfolio_web/ (vite.config.js base is /portfolio_web/). Reference files in /public through asset() from src/lib/asset.js, never a bare "/file" path. Deploys via .github/workflows/deploy.yml on push to main.
 Layout: Single Page, Top to Bottom
 1. Hero: my name, social links directly underneath, and a photo of me.
 2. About / Story: a short story of how I decided to become a software developer.

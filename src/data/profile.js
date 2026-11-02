@@ -1,12 +1,14 @@
+import { asset } from '../lib/asset.js'
 
 export const profile = {
   name: 'Borys Solorzano',
   role: 'Software Developer',
   location: 'Queens, NY',
   tagline: 'I like taking something that already works and asking what else it could do.',
-  // Drop your photo in /public (e.g. public/borys.jpg) and set photo: '/borys.jpg'.
-  photo: '/Profile_pic.jpg',
-  resume: '/resume.pdf',
+  // Files in /public: write the path as '/name.ext' and wrap it in asset(),
+  // which adds the GitHub Pages subpath (/portfolio_web/) automatically.
+  photo: asset('/Profile_pic.jpg'),
+  resume: asset('/resume.pdf'),
   email: 'borys.solo19@gmail.com',
   socials: [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/BSolo-io' },
