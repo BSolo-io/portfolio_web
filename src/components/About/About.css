@@ -38,6 +38,9 @@
 
   scrollbar-width: thin;
   scrollbar-color: #b8b8c0 transparent;
+  /* Always reserve the scrollbar's space, so text width never changes when a
+     long page arrives or leaves (otherwise the text rewraps after a slide) */
+  scrollbar-gutter: stable;
 }
 
 .player__window:focus-visible {
@@ -75,19 +78,19 @@
 }
 
 .track--out-left {
-  animation: track-out-left 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: track-out-left 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .track--out-right {
-  animation: track-out-right 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation: track-out-right 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .track--in-right {
-  animation: track-in-right 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  animation: track-in-right 0.7s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .track--in-left {
-  animation: track-in-left 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  animation: track-in-left 0.7s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* 1.25rem matches the window's side padding, so the pages meet edge to edge */
