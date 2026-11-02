@@ -9,7 +9,9 @@ import Icon from '../Icons/Icon.jsx'
 import { projects } from '../../data/projects.js'
 
 const MAX_PROJECTS = 15
-const AUTOPLAY_MS = 3000
+const AUTOPLAY_MS = 3000 // how long each project stays centred
+const SLIDE_MS = 1500 // how long the slide to the next project takes
+const CLICK_SLIDE_MS = 700 // a bit quicker when someone clicks a side card
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -58,6 +60,7 @@ function Projects() {
           setSwiper(instance)
           if (!playing) instance.autoplay.stop()
         }}
+        speed={SLIDE_MS}
         centeredSlides
         loop
         grabCursor
@@ -83,7 +86,7 @@ function Projects() {
                 project={project}
                 isActive={isActive}
                 canHover={canHover}
-                onInactiveClick={() => swiper?.slideToLoop(index)}
+                onInactiveClick={() => swiper?.slideToLoop(index, CLICK_SLIDE_MS)}
               />
             )}
           </SwiperSlide>
