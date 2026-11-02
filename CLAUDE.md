@@ -19,7 +19,7 @@ Projects Carousel Details
 • Each card has a screenshot, the project name, the tech used, a Live Demo button and a Code (GitHub) button.
 • Clicking a card opens the live demo.
 • Hover preview: a static screenshot by default; on hover (desktop) or when it's the active slide (touch), play a short muted .mp4/.webm clip instead of a heavy GIF. Clips load only when played.
-• Project data lives in src/data/projects.js; personal info in src/data/profile.js.
+• Project content lives in src/data/projects.json (one block per project; field guide at the top of src/data/projects.js). Featured projects show first; text starting with "TODO" is hidden. Personal info and the About story live in src/data/profile.js.
 • Put the strongest projects first, since recruiters mostly look at the first few.
 Style Goals
 • Mix of three styles: one-page scroll, project-first, and a touch of personality (subtle animations, possibly a dark-mode toggle).

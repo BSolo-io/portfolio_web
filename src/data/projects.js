@@ -1,98 +1,48 @@
-// Projects shown in the carousel, in display order.
-// Put your strongest projects FIRST: recruiters mostly look at the first few.
-// The carousel shows at most 15; everything else lives on GitHub.
+// Loads the carousel projects from projects.json and tidies them for display.
 //
-// Fields:
-//   title     project name
-//   tech      list of technologies (shown as chips)
-//   summary   one short sentence
-//   image     screenshot path in /public, e.g. '/projects/ml-news.webp' (null = placeholder)
-//   preview   short muted clip that plays on hover, e.g. '/projects/ml-news.mp4' (null = demo animation)
-//   liveUrl   live demo link (null hides the button; card click falls back to the code link)
-//   codeUrl   GitHub repo link
-//   hue       placeholder colour (0-360) until a screenshot exists
+// To add a project: add one block to projects.json. Fields:
+//   slug         unique id, lowercase-with-dashes (also used for the placeholder colour)
+//   title        project name
+//   tagline      one line shown on the card
+//   description  longer write-up (kept for a future details view)
+//   year         number or null
+//   featured     true = shown before non-featured projects
+//   status       "complete" or "in-progress" (in-progress shows a badge)
+//   tech         list of technologies (chips; first 4 shown)
+//   highlights   short bullet points (first 2 shown on the card)
+//   media        { type: "gif" | "video" | "image", src, alt, poster? }
+//                gif/video play on hover (desktop) or when centred (phones);
+//                poster is an optional still image shown until then
+//   links        { repo, demo } — demo may be null; clicking the card opens demo, else repo
+//
+// Any text that starts with "TODO" is hidden on the site, so unfinished entries
+// never show placeholder text to recruiters.
 
-const GITHUB = 'https://github.com/BSolo-io'
+import data from './projects.json'
 
-export const projects = [
-  {
-    title: 'ML News Editor',
-    tech: ['Python', 'Machine Learning', 'Pandas'],
-    summary: 'Ranks ~12,000 scraped articles a day down to a shortlist of 8 per section for editors.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 250,
-  },
-  {
-    title: 'Debt Tracer',
-    tech: ['Node.js', 'Express', 'MongoDB', 'JWT'],
-    summary: 'AI-powered app that helps users track and work toward their financial goals.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 170,
-  },
-  {
-    title: 'NYC Flooring Website',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    summary: 'Responsive business site with a project-estimate contact form.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 30,
-  },
-  {
-    title: 'Placeholder Project 4',
-    tech: ['React', 'Vite'],
-    summary: 'Replace with a real project.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 320,
-  },
-  {
-    title: 'Placeholder Project 5',
-    tech: ['Dart', 'Flutter'],
-    summary: 'Replace with a real project.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 200,
-  },
-  {
-    title: 'Placeholder Project 6',
-    tech: ['Java'],
-    summary: 'Replace with a real project.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 100,
-  },
-  {
-    title: 'Placeholder Project 7',
-    tech: ['PostgreSQL', 'Express'],
-    summary: 'Replace with a real project.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 0,
-  },
-  {
-    title: 'Placeholder Project 8',
-    tech: ['C++'],
-    summary: 'Replace with a real project.',
-    image: null,
-    preview: null,
-    liveUrl: null,
-    codeUrl: GITHUB,
-    hue: 280,
-  },
-]
+const MAX_PROJECTS = 15
+
+const isTodo = (value) => typeof value === 'string' && value.trim().toUpperCase().startsWith('TODO')
+const clean = (value) => (isTodo(value) ? '' : value)
+
+// Stable colour per project for the placeholder art, derived from its slug
+function hueFromSlug(slug) {
+  let hash = 0
+  for (const ch of slug) hash = (hash * 31 + ch.charCodeAt(0)) % 360
+  return hash
+}
+
+export const projects = data
+  // featured first; otherwise keep the order from the JSON file
+  .map((p, order) => ({ ...p, order }))
+  .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order)
+  .slice(0, MAX_PROJECTS)
+  .map((p) => ({
+    ...p,
+    tagline: clean(p.tagline),
+    description: clean(p.description),
+    highlights: (p.highlights || []).filter((h) => !isTodo(h)),
+    tech: p.tech || [],
+    media: p.media ? { ...p.media, alt: clean(p.media.alt) || `Preview of ${p.title}` } : null,
+    hue: hueFromSlug(p.slug),
+  }))

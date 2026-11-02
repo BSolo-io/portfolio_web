@@ -1,0 +1,91 @@
+[
+  {
+    "slug": "class-planner",
+    "title": "Class Planner",
+    "tagline": "Helps City Tech students pick a career, then plan the classes to get there.",
+    "description": "A quiz walks students toward a career path, then the planner maps the courses required to reach it — tracking prerequisites and what a student has already completed. The course catalog is scraped from City Tech's own site with a Python pipeline and transformed into the data the app reads.",
+    "year": 2026,
+    "featured": true,
+    "status": "in-progress",
+    "tech": ["React 19", "Vite", "Python", "Web scraping"],
+    "highlights": [
+      "Prerequisite resolution across a full degree catalog",
+      "Python scraper and transform pipeline feeding the front end"
+    ],
+    "media": { "type": "gif", "src": "/projects/class-planner.gif", "alt": "Walking through the career quiz and into the course planner" },
+    "links": { "repo": "https://github.com/BSolo-io/Class_Planner", "demo": null }
+  },
+  {
+    "slug": "feed-picker",
+    "title": "Feed Picker",
+    "tagline": "Recommends news articles to editors, turning ~12,000 scraped a day into a ranked shortlist.",
+    "description": "Built at my internship, where editors were hand-picking every article out of about 12,000 scraped a day. An end-to-end machine learning system learns what the editors were already looking for and surfaces a ranked shortlist per section. A multi-stage filter first throws out low-quality scraped articles (missing images, wrong length, no category) before any expensive processing.",
+    "year": 2026,
+    "featured": true,
+    "status": "complete",
+    "tech": ["Python", "Machine Learning"],
+    "highlights": [
+      "Cut the daily review pile from ~12,000 articles to a ranked shortlist of 8 per section",
+      "Filtering pipeline discards over 50% of raw input before any expensive processing"
+    ],
+    "media": { "type": "gif", "src": "/projects/feed-picker.gif", "alt": "TODO" },
+    "links": { "repo": "https://github.com/BSolo-io/feed-picker", "demo": null }
+  },
+  {
+    "slug": "pokemon-elite-four",
+    "title": "Pokédex: Elite Four Edition",
+    "tagline": "A six-Pokémon team built to beat the Elite Four, as a browsable Pokédex.",
+    "description": "Each team member shows up as a type-colored card; clicking one opens its full stat sheet and its role on the team. Built deliberately without a front-end framework — just HTML, CSS and JavaScript against an Express server reading from Postgres.",
+    "year": null,
+    "featured": true,
+    "status": "complete",
+    "tech": ["JavaScript", "Express", "PostgreSQL", "Pico.css"],
+    "highlights": [
+      "No front-end framework — routing and rendering by hand",
+      "Server-side routes with a real 404 page"
+    ],
+    "media": { "type": "gif", "src": "/projects/pokemon-elite-four.gif", "alt": "Browsing the team and opening a Pokémon's stat sheet" },
+    "links": { "repo": "https://github.com/BSolo-io/Pokemon_Elite_4", "demo": null }
+  },
+  {
+    "slug": "barista-app",
+    "title": "Barista App",
+    "tagline": "Pick your drink by its properties and it finds the matching recipe.",
+    "description": "A form collects what you want in a drink — temperature, milk, size — and the app matches it against a recipe set to return the right one. Small build, but it was the one that taught me how quickly a mismatched field name between a form and its JSON can quietly break everything downstream.",
+    "year": null,
+    "featured": false,
+    "status": "complete",
+    "tech": ["React", "Vite", "JavaScript"],
+    "highlights": [
+      "Component-to-component state passing across a multi-step form"
+    ],
+    "media": { "type": "gif", "src": "/projects/barista-app.gif", "alt": "Filling out the drink form and getting a matched recipe" },
+    "links": { "repo": "https://github.com/BSolo-io/barista-app", "demo": null }
+  },
+  {
+    "slug": "cat-api",
+    "title": "Cat API",
+    "tagline": "TODO — one line on what it does.",
+    "description": "TODO",
+    "year": null,
+    "featured": false,
+    "status": "complete",
+    "tech": ["React", "Vite"],
+    "highlights": [],
+    "media": { "type": "gif", "src": "/projects/cat-api.gif", "alt": "TODO" },
+    "links": { "repo": "https://github.com/BSolo-io/Cat_API", "demo": null }
+  },
+  {
+    "slug": "game-dev",
+    "title": "Game Dev",
+    "tagline": "TODO — one line on what it does.",
+    "description": "TODO",
+    "year": null,
+    "featured": false,
+    "status": "complete",
+    "tech": [],
+    "highlights": [],
+    "media": { "type": "gif", "src": "/projects/game-dev.gif", "alt": "TODO" },
+    "links": { "repo": "https://github.com/BSolo-io/Game_Dev", "demo": null }
+  }
+]

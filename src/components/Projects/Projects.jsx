@@ -8,9 +8,8 @@ import ProjectCard from './ProjectCard.jsx'
 import Icon from '../Icons/Icon.jsx'
 import { projects } from '../../data/projects.js'
 
-const MAX_PROJECTS = 15
-const AUTOPLAY_MS = 3000 // how long each project stays centred
-const SLIDE_MS = 1500 // how long the slide to the next project takes
+const AUTOPLAY_MS = 2800 // how long each project stays centred
+const SLIDE_MS = 2200 // how long the slide to the next project takes
 const CLICK_SLIDE_MS = 700 // a bit quicker when someone clicks a side card
 
 function prefersReducedMotion() {
@@ -38,7 +37,6 @@ function Projects() {
   // (or has asked their OS to reduce motion)
   const [playing, setPlaying] = useState(() => !prefersReducedMotion())
   const canHover = useCanHover()
-  const shown = projects.slice(0, MAX_PROJECTS)
 
   function togglePlaying() {
     if (!swiper) return
@@ -79,8 +77,8 @@ function Projects() {
           768: { slidesPerView: 3, spaceBetween: 24 },
         }}
       >
-        {shown.map((project, index) => (
-          <SwiperSlide key={project.title} className="projects__slide">
+        {projects.map((project, index) => (
+          <SwiperSlide key={project.slug} className="projects__slide">
             {({ isActive }) => (
               <ProjectCard
                 project={project}
