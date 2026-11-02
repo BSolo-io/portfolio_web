@@ -10,17 +10,22 @@
   padding: 1rem 1rem 3.5rem;
 }
 
-/* Neighbouring slides peek in smaller and dimmed; the active one is full size */
+/* Neighbouring slides peek in smaller and dimmed; the active one is full size.
+   - Applied to the card inside the slide, because Swiper writes its own inline
+     transform on the slide itself (which would cancel the scale).
+   - Dimming uses a filter, not opacity, so cards stay solid and the animated
+     background never shows through them. */
 .projects__slide {
   height: auto;
-  opacity: 0.45;
-  transform: scale(0.88);
-  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.projects__slide.swiper-slide-active {
-  opacity: 1;
-  transform: none;
+.projects__slide:not(.swiper-slide-active) .card {
+  transform: scale(0.88);
+  filter: brightness(0.55) saturate(0.6);
+}
+
+.projects__slide .card {
+  transition: transform 0.4s ease, filter 0.4s ease, border-color 0.3s ease;
 }
 
 .projects__swiper .swiper-button-prev,
@@ -41,7 +46,7 @@
 }
 
 @media (max-width: 767px) {
-  .projects__slide {
+  .projects__slide:not(.swiper-slide-active) .card {
     transform: none;
   }
 
